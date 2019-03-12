@@ -11,7 +11,7 @@ If you want to test it locally on the geth image, follow these steps:
 - TODO
 
 To test it on a local devchain:
-- Spin it up in a separate tab with `aragon run devchain --reset`
+- Spin it up in a separate tab with `aragon devchain --reset`
 - Deloy a token:
 ```
 cd ../../helpers/test-token-deployer
