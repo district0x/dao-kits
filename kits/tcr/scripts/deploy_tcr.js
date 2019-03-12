@@ -4,6 +4,7 @@ const namehash = require('eth-ens-namehash').hash
 const getContract = name => artifacts.require(name)
 const getApp = (receipt, app, index) => { return receipt.logs.filter(l => l.event == 'InstalledApp' && l.args['appId'] == namehash(app))[index].args['appProxy'] }
 const pct16 = x => new web3.BigNumber(x).times(new web3.BigNumber(10).toPower(16))
+const getEventResult = (receipt, event, param) => receipt.logs.filter(l => l.event == event)[0].args[param]
 
 const errorOut = msg => { console.error(msg); process.exit(1) }
 
@@ -62,6 +63,9 @@ module.exports = async (
     console.log(r1)
     errorOut("New TCRKit transaction should succeed")
   }
+  const kitInstance = getEventResult(r1, 'DeployInstance', 'dao')
+  log('New kit instance deloyed at: ', kitInstance)
+
   const curation = getContract('Curation').at(getApp(r1, 'curation.aragonpm.eth', 0))
   const registry = getContract('RegistryApp').at(getApp(r1, 'registry.aragonpm.eth', 0))
   const plcr = getContract('PLCR').at(getApp(r1, 'plcr.aragonpm.eth', 0))
@@ -73,6 +77,7 @@ module.exports = async (
   }
 
   let resultObj = {}
+  resultObj['dao'] = kitInstance
   resultObj['registry'] = registry.address
   resultObj['staking'] = stakingAddress
   resultObj['plcr'] = plcr.address
