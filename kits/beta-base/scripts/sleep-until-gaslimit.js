@@ -7,7 +7,7 @@ module.exports = callback => {
           console.log('found', block.gasLimit, 'in block', block.number)
           return callback()
         } else {
-          console.log('waiting for gas increase, process', block.gasLimit / targetGasLimit)
+          console.log('found', block.gasLimit, 'in block', block.number, ', waiting for gas increase, process', block.gasLimit / targetGasLimit)
           setTimeout(() => checkGasLimit(), 1000)
         }
       })
