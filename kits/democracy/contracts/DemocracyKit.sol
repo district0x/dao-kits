@@ -15,26 +15,26 @@ contract DemocracyKit is BetaKitBase {
         public
     {}
 
-    function newTokenAndInstance(
-        string name,
-        string symbol,
-        address[] holders,
-        uint256[] tokens,
-        uint64 supportNeeded,
-        uint64 minAcceptanceQuorum,
-        uint64 voteDuration
-    ) public
-    {
-        newToken(name, symbol);
-        newInstance(
-            name,
-            holders,
-            tokens,
-            supportNeeded,
-            minAcceptanceQuorum,
-            voteDuration
-        );
-    }
+    // function newTokenAndInstance(
+    //     string name,
+    //     string symbol,
+    //     address[] holders,
+    //     uint256[] tokens,
+    //     uint64 supportNeeded,
+    //     uint64 minAcceptanceQuorum,
+    //     uint64 voteDuration
+    // ) public
+    // {
+    //     newToken(name, symbol);
+    //     newInstance(
+    //         name,
+    //         holders,
+    //         tokens,
+    //         supportNeeded,
+    //         minAcceptanceQuorum,
+    //         voteDuration
+    //     );
+    // }
 
     function newToken(string name, string symbol) public returns (MiniMeToken token) {
         token = minimeFac.createCloneToken(
@@ -54,34 +54,39 @@ contract DemocracyKit is BetaKitBase {
         uint256[] tokens,
         uint64 supportNeeded,
         uint64 minAcceptanceQuorum,
-        uint64 voteDuration
+        uint64 voteDuration,
+        address _token
     )
         public
     {
-        require(voteDuration > 0); // TODO: remove it once we add it to Voting app
+        // require(voteDuration > 0); // TODO: remove it once we add it to Voting app
+        // MiniMeToken token = popTokenCache(msg.sender);
 
-        MiniMeToken token = popTokenCache(msg.sender);
-        Kernel dao;
-        ACL acl;
-        Voting voting;
-        (dao, acl, , , , voting) = createDAO(
-            name,
-            token,
-            holders,
-            tokens,
-            uint256(-1)
-        );
+        // MiniMeToken token = MiniMeToken(_token);
+        // Kernel dao;
+        // ACL acl;
+        // Voting voting;
+        // (dao, acl, , , , voting) = createDAO(
+        //     name,
+        //     token,
+        //     holders,
+        //     tokens,
+        //     uint256(-1)
+        // );
 
-        voting.initialize(
-            token,
-            supportNeeded,
-            minAcceptanceQuorum,
-            voteDuration
-        );
+        // voting.initialize(
+        //     token,
+        //     supportNeeded,
+        //     minAcceptanceQuorum,
+        //     voteDuration
+        // );
 
-        // burn support modification permission
-        acl.createBurnedPermission(voting, voting.MODIFY_SUPPORT_ROLE());
+        // // burn support modification permission
+        // acl.createBurnedPermission(voting, voting.MODIFY_SUPPORT_ROLE());
 
-        cleanupPermission(acl, voting, acl, acl.CREATE_PERMISSIONS_ROLE());
+        // cleanupPermission(acl, voting, acl, acl.CREATE_PERMISSIONS_ROLE());
+
     }
+
+    function foo() public {}
 }

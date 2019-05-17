@@ -4,6 +4,7 @@
   "description": "Democracy Kit for Aragon orgs",
   "main": "index.js",
   "scripts": {
+    "drDeploy": "npm run prepublishOnly; env OWNER=0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1 npm run deploy:rpc",
     "prepublishOnly": "truffle compile && npm run abi:extract -- --no-compile",
     "abi:extract": "truffle-extract --output abi/ --keys abi",
     "deploy:rinkeby": "truffle exec --network rinkeby scripts/deploy.js",

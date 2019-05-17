@@ -35,7 +35,7 @@ module.exports = async (
   const log = (...args) => {
     if (verbose) { console.log(...args) }
   }
-
+// throw new Error("foo")
   log(`${kitName} in ${network} network with ENS ${ensAddress}`)
 
   const kitEnsName = kitName + '.aragonpm.eth'
@@ -74,8 +74,10 @@ module.exports = async (
     log(`Using provided DAOFactory: ${daoFactoryAddress}`)
     daoFactory = DAOFactory.at(daoFactoryAddress)
   } else {
-    daoFactory = (await deployDAOFactory(null, { artifacts, verbose: false })).daoFactory
+    daoFactory = (await deployDAOFactory(null, { artifacts, verbose: false })).daoFactory    
   }
+
+// console.log("DAO factory", daoFactory)
 
   let minimeFac
   if (minimeTokenFactoryAddress) {
